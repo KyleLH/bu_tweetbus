@@ -1,0 +1,25 @@
+{
+  "name": "nodetest",
+  "version": "1.0.0",
+  "description": "A simple test for node",
+  "main": "index.js",
+  "scripts": {
+    "test": "debug",
+    "start": "node server.js"
+  },
+  "author": "Kyle Holzinger",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleLH/nodetest"
+  },
+  "keywords": [
+    "node"
+  ],
+  "bugs": {
+    "url": "https://github.com/KyleLH/nodetest/issues"
+  },
+  "homepage": "https://github.com/KyleLH/nodetest",
+  "dependencies": {
+  }
+}
