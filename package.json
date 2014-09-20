@@ -21,5 +21,6 @@
   },
   "homepage": "https://github.com/KyleLH/nodetest",
   "dependencies": {
+    "node-twitter-api": "^1.4.0"
   }
 }

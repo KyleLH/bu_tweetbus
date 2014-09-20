@@ -1,14 +1,22 @@
-var TwitterBot = require("node-twitterbot").TwitterBot;
-
-var bot = new TwitterBot({
-    'consumer_key': 'k26SEC2WkLuDTS7sI0Off97wt',
-    'consumer_secret': 'GcgwnuJiFlgF19u9ZwA2NenmqEttFkccKp7D4KcWoojEOpMGqh',
-    'access_token': '2775863764-aQ1jjei1smviiGrU6UHixb9y9h4LZuWlIgWsYLU',
-    'access_token_secret': 'MC7EltAHW7u1cZirzFvvYywdUI7noDhBdoW5oUUC3Vau9'
+var twitterAPI = require('node-twitter-api');
+var keys = require('./twitterkeys');
+console.log(twitterAPI);
+var twitter = new twitterAPI({
+    consumerKey: keys.consumerKey,
+    consumerSecret: keys.consumerSecret
 });
 
-bot.addAction('tweet', function (twitter, action, tweet) {
-    console.log(bot.tweet('a tweet from node'));
-});
-
-bot.now('tweet');
+/*
+twitter.statuses('update', {
+        "status": 'Tweet from node!',
+    },
+    keys.token,
+    keys.secret,
+    function (error, data, response) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("success");
+        }
+    }
+);*/
