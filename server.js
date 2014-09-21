@@ -22,6 +22,7 @@ request({
             for (i in allStops) {
                 stops[allStops[i].transloc_stop_id] = allStops[i].stop_name;
             }
+            console.log(stops);
         } else {
             console.log('Error: \n' + e);
         }
@@ -41,18 +42,21 @@ setInterval (function () {
             if (!e && res.statusCode === 200) {
                 var allBuses = body.ResultSet.Result;
                 for (i in allBuses) {
+                console.log(allBuses[i]);
                     if (allBuses[i].arrival_estimates) {
                         buses.push({})
                         var index = len(buses)-1
                         buses[index].prev_stop = buses[index].arrival_estimates[0].stop_id;
                         buses[index].estimates = allBuses[i];
-                        if (buses[index].prev_stop != buses[index].estimates.arrival_estimates[0].stop_id) {
+                        console.log("Buses: ");
+                        console.log(buses);
+                        /*if (buses[index].prev_stop != buses[index].estimates.arrival_estimates[0].stop_id) {
                             // tweet
                             var status = "A bus just passed " + buses[index].prev_stop + ". \nNext stop: " +
                                 buses[index].estimates.arrival_estimates[0].stop_id + "\nETA: " +
                                 // find the actual correct variable, not timeEstimate
                                 buses[index].estimates.arrival_estimates[0].timeEstimate;
-                            
+                                console.log(buses);
                             twitter.statuses('update', {
                                     "status": status,
                                 },
@@ -66,12 +70,12 @@ setInterval (function () {
                                     }
                                 }
                             );
-                        }
+                        }*/
                     }
                 }
-                for (i in buses) {
+                //for (i in buses) {
                     
-                }
+                //}
             } else {
                 console.log('Error: \n' + e);
             }
