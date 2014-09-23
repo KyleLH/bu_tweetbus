@@ -4,10 +4,12 @@ var twitterAPI = require('node-twitter-api');
 
 var twitter = new twitterAPI({
     consumerKey: keys.consumerKey,
-    consumerSecret: keys.consumerSecret
+    consumerSecret: keys.consumerSecret,
 });
+
 var stops = {};
 var buses = {};
+
 
 // retrieve bus stops
 var url = 'http://www.bu.edu/bumobile/rpc/bus/stops.json.php?service_id=fall';
@@ -22,7 +24,7 @@ request({
             for (i in allStops) {
                 stops[allStops[i].transloc_stop_id] = allStops[i].stop_name;
             }
-            console.log(stops);
+//            console.log(stops);
         } else {
             console.log('Error: \n' + e);
         }
@@ -120,11 +122,6 @@ setInterval (function () {
         }
     );
 }, 5000);
-
-var direction = function (bus) {
-    // if next stop is west or north of current bus, it's going outbound (westward)
-    // if next stop is east or south of current bus, it's going inbound (eastward)
-}
 
 console.log("requests successful");
 // bus is a dictionary of { lat: float, long: float, heading: int}
