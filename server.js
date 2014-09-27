@@ -53,25 +53,35 @@ setInterval (function () {
                         if (!(buses[cur_bus])) {
                             console.log("Initiate bus at " + cur_bus);
                             buses[cur_bus] = {};
-                            buses[cur_bus].estimate = allBuses[i].arrival_estimates[0];
+                            buses[cur_bus].estimates = allBuses[i].arrival_estimates;
                         }
-                        
+
+
                         // check if just passed a stop
-                        if(buses[cur_bus].estimate.stop_id != allBuses[i].arrival_estimates[0].stop_id) {
-                            var date = new Date(allBuses[i].arrival_estimates[0].arrival_at);
-                            var tod = date.getHours() > 12 ? "PM" : "AM";
-                            var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-                            var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                            console.log("A bus just passed " + stops[buses[cur_bus].estimate.stop_id] + '\nNext stop: ' +
-                                stops[allBuses[i].arrival_estimates[0].stop_id] + '\nETA: ' +
-                                hours + ":" + min + " " + tod);
+                        if(buses[cur_bus].estimates[0].stop_id != allBuses[i].arrival_estimates[0].stop_id
+                                && (stops[allBuses[i].arrival_estimates[1].stop_id] == 'Student Village 2'
+                                || stops[allBuses[i].arrival_estimates[0].stop_id] == 'Student Village 2')) {
+
+                            if (stops[allBuses[i].arrival_estimates[1].stop_id] == 'Marsh Plaza') {
+                                var date = new Date(allBuses[i].arrival_estimates[1].arrival_at);
+                                var tod = date.getHours() > 12 ? "PM" : "AM";
+                                var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+                                var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                                var time = hours + ":" + min + " " + tod;
+                                var status = "Bus to " + stops[allBuses[i].arrival_estimates[1].stop_id] + " in " + time;
+                            } else {
+                                var date = new Date(allBuses[i].arrival_estimates[0].arrival_at);
+                                var tod = date.getHours() > 12 ? "PM" : "AM";
+                                var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+                                var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                                var time = hours + ":" + min + " " + tod;
+                                var status = "Bus to " + stops[allBuses[i].arrival_estimates[0].stop_id] + " in " + time;
+                            }
+
+                            console.log(status);
 
                             // tweet to your hearts content
-                            var status = "A bus just passed " + stops[buses[cur_bus].estimate.stop_id] + "\nNext stop: " +
-                                stops[allBuses[i].arrival_estimates[0].stop_id] + "\nETA: " +
-                                // find the actual correct variable, not timeEstimate
-                                hours + ":" + min + " " + tod;
-                            twitter.statuses('update', {
+                            /*twitter.statuses('update', {
                                     "status": status,
                                 },
                                 keys.token,
@@ -83,9 +93,9 @@ setInterval (function () {
                                         console.log("success");
                                     }
                                 }
-                            );
+                            ); */
 
-                            buses[cur_bus].estimate = allBuses[i].arrival_estimates[0];
+                            buses[cur_bus].estimates = allBuses[i].arrival_estimates;
 
                         }
 
