@@ -24,7 +24,6 @@ request({
             for (i in allStops) {
                 stops[allStops[i].transloc_stop_id] = allStops[i].stop_name;
             }
-//            console.log(stops);
         } else {
             console.log('Error: \n' + e);
         }
@@ -60,23 +59,15 @@ setInterval (function () {
                         // check if just passed a stop
                         if(buses[cur_bus].estimates[0].stop_id != allBuses[i].arrival_estimates[0].stop_id
                                 && (stops[allBuses[i].arrival_estimates[1].stop_id] == 'Student Village 2'
-                                || stops[allBuses[i].arrival_estimates[0].stop_id] == 'Student Village 2')) {
+                                || stops[allBuses[i].arrival_estimates[1].stop_id] == 'Nickerson Field'
+                                || stops[allBuses[i].arrival_estimates[1].stop_id] == 'Marsh Plaza') {
 
-                            if (stops[allBuses[i].arrival_estimates[1].stop_id] == 'Marsh Plaza') {
-                                var date = new Date(allBuses[i].arrival_estimates[1].arrival_at);
-                                var tod = date.getHours() > 12 ? "PM" : "AM";
-                                var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-                                var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                                var time = hours + ":" + min + " " + tod;
-                                var status = "Bus to " + stops[allBuses[i].arrival_estimates[1].stop_id] + " in " + time;
-                            } else {
-                                var date = new Date(allBuses[i].arrival_estimates[0].arrival_at);
-                                var tod = date.getHours() > 12 ? "PM" : "AM";
-                                var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-                                var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                                var time = hours + ":" + min + " " + tod;
-                                var status = "Bus to " + stops[allBuses[i].arrival_estimates[0].stop_id] + " in " + time;
-                            }
+                            var date = new Date(allBuses[i].arrival_estimates[1].arrival_at);
+                            var tod = date.getHours() > 12 ? "PM" : "AM";
+                            var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+                            var min = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                            var time = hours + ":" + min + " " + tod;
+                            var status = "Bus to " + stops[allBuses[i].arrival_estimates[1].stop_id] + " in " + time;
 
                             console.log(status);
 
@@ -98,28 +89,6 @@ setInterval (function () {
                             buses[cur_bus].estimates = allBuses[i].arrival_estimates;
 
                         }
-
-                        /*
-                        // the tweet
-                        var status = "A bus just passed " + buses[index].prev_stop + ". \nNext stop: " +
-                            buses[index].estimates.arrival_estimates[0].stop_id + "\nETA: " +
-                            // find the actual correct variable, not timeEstimate
-                            buses[index].estimates.arrival_estimates[0].timeEstimate;
-                            console.log(buses);
-                        twitter.statuses('update', {
-                                "status": status,
-                            },
-                            keys.token,
-                            keys.secret,
-                            function (error, data, response) {
-                                if (error) {
-                                    console.log(error);
-                                } else {
-                                    console.log("success");
-                                }
-                            }
-                        );
-                        */
                     }
                 }
 
@@ -134,8 +103,3 @@ setInterval (function () {
 }, 5000);
 
 console.log("requests successful");
-// bus is a dictionary of { lat: float, long: float, heading: int}
-// stop is a dictionary of { lat: float, long: float }
-
-// Tweet about it why don't you
-
